@@ -1,0 +1,33 @@
+{
+  "name": "node-rdm6300",
+  "version": "0.0.1",
+  "description": "nodejs RDM6300 125khz RFID lib",
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-node test/test1.test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chnbohwr/node-rdm6300.git"
+  },
+  "keywords": [
+    "rfid",
+    "rdm6300"
+  ],
+  "author": "chnbohwr <chnbohwr@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chnbohwr/node-rdm6300/issues"
+  },
+  "homepage": "https://github.com/chnbohwr/node-rdm6300#readme",
+  "dependencies": {
+    "serialport": "10.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.0.3",
+    "@types/serialport": "8.0.2",
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.8.2",
+    "typescript": "4.7.4"
+  }
+}
