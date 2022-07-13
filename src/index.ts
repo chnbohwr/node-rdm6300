@@ -12,10 +12,34 @@ type Options = {
   path: string;
 }
 
+/**
+ * Nodejs Serialport connect to RDM6300 lib,
+ * this lib will emit id when rfid reader trigger.
+ * ### Prerequisites
+ *  * A 125KHz RFID RDM6300 module
+ *  * An USB TTL adapter
+ * ```ts
+ * import Rdm6300 from 'node-rdm6300';
+ * const rdm = new Rdm6300({ path: '/dev/tty.usbserial-0001' });
+ * rdm.on('cardIn', (cardId) => {console.log('card in', cardId);});
+ * ```
+ */
 class Rdm6300 extends events.EventEmitter {
+  /**
+   * @hidden
+   */
   active = false;
+  /**
+   * @hidden
+   */
   bufferArr: Array<Buffer> = [];
+  /**
+   * @hidden
+   */
   nowId: string = '';
+  /**
+   * @hidden
+   */
   clearIdTimeout: NodeJS.Timeout = setTimeout(() => { }, 0);
   port: SerialPort;
   constructor(options?: Options) {
@@ -39,10 +63,17 @@ class Rdm6300 extends events.EventEmitter {
       }
     }, 3000)
   }
+  /**
+   * @hidden
+   */
   clearNowId() {
     this.nowId = '';
     this.emit('cardOut');
   }
+  /**
+   * @hidden
+   * @param id 
+   */
   processData(id: string) {
     if (id !== this.nowId) {
       this.nowId = id;
@@ -51,6 +82,9 @@ class Rdm6300 extends events.EventEmitter {
     clearTimeout(this.clearIdTimeout);
     this.clearIdTimeout = setTimeout(this.clearNowId.bind(this), 1000);
   }
+  /**
+   * @hidden
+   */
   onData(buffer: Buffer) {
     this.bufferArr.push(buffer);
     if (buffer[buffer.length - 1] === 0x03) {
@@ -66,9 +100,15 @@ class Rdm6300 extends events.EventEmitter {
       this.bufferArr = [];
     }
   }
+  /**
+   * @hidden
+   */
   onOpen() {
     this.emit('open');
   }
+  /**
+   * @hidden
+   */
   onError(e: Error) {
     this.emit('error', e);
   }
