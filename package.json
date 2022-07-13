@@ -1,6 +1,6 @@
 {
   "name": "node-rdm6300",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "nodejs RDM6300 125khz RFID lib",
   "main": "dist/index.js",
   "scripts": {
