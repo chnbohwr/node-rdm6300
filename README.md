@@ -16,9 +16,15 @@ npm install node-rdm6300
 ## Usage
 
 ```ts
-import Rdm6300 from 'node-rdm6300';
+// use import
+// import Rdm6300 from 'node-rdm6300';
+// use require
+const Rdm6300 = require('node-rdm6300').default;
 const rdm = new Rdm6300({ path: '/dev/tty.usbserial-0001' });
 rdm.on('cardIn', (cardId) => {console.log('card in', cardId);});
+rdm.on('cardOut', () => {console.log('card out');});
+rdm.on('open', () => {console.log('serialport open');});
+rdm.on('error', (e) => {console.log('serialport error', e);});
 ```
 
 ## Document
